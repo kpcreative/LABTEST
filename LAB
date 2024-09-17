@@ -1,0 +1,67 @@
+import numpy as np
+
+
+Patient_list = np.array([
+    [1, 'A', 100, 'General Checkup', 'Room 12', 2000],
+    [2, 'B', 102, 'Surgery', 'Room 15', 5000],
+    [3, 'Ch', 100, 'General Checkup', 'Room 11', 3000],
+    [4, 'Dd', 103, 'Orthopedics', 'Room 18', 7000]
+])
+
+
+Doctor_list = np.array([
+    [101, 'Dr. Smith', 'General Medicine'],
+    [102, 'Dr. John', 'Surgery'],
+    [103, 'Dr. Alex', 'Orthopedics']
+])
+
+
+def find_patients_by_doctor(doctor_id):
+    return Patient_list[Patient_list[:, 3] == doctor_id]
+
+def update_treatment(patient_id, new_treatment, new_room, new_bill):
+    for patient in Patient_list:
+        if patient[0] == patient_id:
+            patient[3] = new_treatment
+            patient[4] = new_room
+            patient[5] = new_bill
+            break
+            
+def update(p_id,nn,nr,nb):
+    a=len(Patients_list);
+    for i in range (0,a):
+         if Patients_list[i][0] == p_id:
+            Patients_list[i][3] = nn
+            Patients_list[i][4] = nr
+            Patients_list[i][5] = nb
+            break
+
+
+def find_doctors_max_min_patients():
+    doctor_ids, patient_counts = np.unique(Patient_list[:, 2], return_counts=True)
+    max_patients_doctor = doctor_ids[np.argmax(patient_counts)]
+    min_patients_doctor = doctor_ids[np.argmin(patient_counts)]
+    return max_patients_doctor, min_patients_doctor
+
+
+def find_patients_max_min_bill():
+    max_bill_patient = Patient_list[np.argmax(Patient_list[:, 5])]
+    min_bill_patient = Patient_list[np.argmin(Patient_list[:, 5])]
+    return max_bill_patient, min_bill_patient
+
+print(Patient_list)
+print(Doctor_list)
+doctor_id = 100
+patients_by_doctor = find_patients_by_doctor(doctor_id)
+print("Pats assigned to docr", doctor_id, ":", patients_by_doctor)
+
+update_treatment(2, 'Post-Surgery', 'Room 16', 5500)
+print("Updated Patient List:", Patient_list)
+
+max_patients_doctor, min_patients_doctor = find_doctors_max_min_patients()
+print("Doctor with maximum patients:", max_patients_doctor)
+print("Doctor with minimum patients:", min_patients_doctor)
+
+max_bill_patient, min_bill_patient = find_patients_max_min_bill()
+print("Patient with maximum bill:", max_bill_patient)
+print("Patient with minimum bill:", min_bill_patient)
